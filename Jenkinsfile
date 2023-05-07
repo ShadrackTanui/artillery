@@ -12,3 +12,4 @@ pipeline {
                 sh '/home/node/artillery/bin/run run tests/performance/socket-io.yml'
             }
         }
+    }
