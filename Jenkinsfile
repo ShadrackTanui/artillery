@@ -10,18 +10,21 @@ pipeline {
         cron('0 0 * * *')
     }
 
-    stages {
-        stage('Load Test') {
-            steps {
-                sh '/home/node/artillery/bin/run run --output reports/report.json tests/performance/socket-io.yaml'
-                sh '/home/node/artillery/bin/run report --output reports/report reports/report.json'
-            }
-        }
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('jenkins-aws-secret-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
     }
 
-    post {
-        success {
-            archiveArtifacts 'reports/*'
+    stages {
+        stage('Set up Artillery Pro') {
+            steps {
+                sh 'npm install -g artillery-pro@latest'
+            }
+        }
+        stage('Load Test on AWS') {
+            steps {
+                sh '/home/node/artillery/bin/run run-test --cluster artillery-pro-cluster --region us-east-1 --count 5'
+            }
         }
     }
 }
