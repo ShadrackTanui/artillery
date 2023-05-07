@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {
         docker {
             image 'artilleryio/artillery:latest'
             args '-u root:root -i --entrypoint='
@@ -13,3 +13,4 @@ pipeline {
             }
         }
     }
+}
