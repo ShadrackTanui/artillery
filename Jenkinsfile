@@ -9,10 +9,8 @@ pipeline {
     stages {
         stage('Load Test') {
             steps {
-                withArtillery(jdk: '11') {
-                    sh '/home/node/artillery/bin/run run --output reports/report.json tests/performance/socket-io.yaml'
+                sh '/usr/local/lib/node_modules/artillery/bin run tests/performance/socket-io.yml'
             }
         }
     }
-}
 }
