@@ -1,6 +1,6 @@
 pipeline {
     agent {
-       label "docker" {
+        label "docker" {
             image 'artilleryio/artillery:latest'
             args '-u root:root -i --entrypoint='
         }
