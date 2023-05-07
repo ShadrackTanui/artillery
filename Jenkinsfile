@@ -1,19 +1,15 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'artilleryio/artillery:latest'
+            args '-u root:root -i --entrypoint='
+        }
+    }
+
     stages {
-        stage('Build') {
+        stage('Load Test') {
             steps {
-                //
-            }
-        }
-        stage('Test') {
-            steps {
-                //
-            }
-        }
-        stage('Deploy') {
-            steps {
-                //
+                sh '/home/node/artillery/bin/run run tests/performance/socket-io.yml'
             }
         }
     }
