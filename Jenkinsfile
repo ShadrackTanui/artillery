@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Load Test') {
             steps {
-                sh '/home/node/artillery/bin/run run tests/performance/socket-io.yml'
+                sh '/home/node/artillery/bin/run run --output reports/report.json tests/performance/socket-io.yml'
             }
         }
     }
